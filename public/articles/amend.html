@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../stylesheets/news.css">
+  <script src="../javascripts/jquery-3.4.1.min.js"></script>
+  <script src="../javascripts/news.js"></script>
+  <title>文章修改</title>
+</head>
+<body>
+  <h1>文章修改系统</h1>
+  <form id="articles_publish">
+    <table border="1"   cellspacing="0">
+      <tr>
+        <td>作者</td>
+        <td>
+          <input type="text" name="author" placeholder="请输入作者" id="author">
+        </td>
+      </tr>
+      <tr>
+        <td>文章名</td>
+        <td>
+          <input type="text" name="article_name" placeholder="请输入文章名" id="title">
+        </td>
+      </tr>
+      <tr>
+        <td>来源</td>
+        <td>
+          <input type="text" name="source" placeholder="请输入来源,原创可以不写" id="source">
+        </td>
+      </tr>
+      <tr>
+        <td>正文内容</td>
+        <td>
+          <textarea name="article"  cols="135" rows="25" placeholder="请在这里输入正文内容" id="articles_content"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>修改</td>
+        <td id="issue_id">
+          <input type="button" id="issue" value="修改">
+        </td>
+      </tr>
+    </table>
+  </form>
+  <script>
+    // 发送ajax请求
+    $(() => {
+      // 通过id发送get请求拿回数据进行回显
+      let id_val = location.href.split('=')[1];
+      $.get('/api/articles/' + id_val,data => {
+        $('#title').val(data.article_name);  // 标题
+        $('#author').val(data.author);  // 作者
+        $('#source').val(data.source);  //来源
+        $('#articles_content').html(data.article);  // 正文内容
+      })
+      // 点击发送put请求进行修改
+      $('#issue').click(() => {
+        let val = $('#articles_publish').serialize().split('&');
+        let sign = formValidator(val); // 验证
+        if(!sign){
+          alert('文章修改已被驳回,请重新编辑');
+        }else{
+          $.ajax({
+            url:'/api/articles/' + location.href.split('=')[1],
+            type:'PUT',
+            data:$('#articles_publish').serialize(),
+            success:data => {
+              alert(data.msg);
+              window.location.href = '/api/articles';  // 跳转页面
+            }
+          })
+        }
+      })
+    })
+  </script>
+</body>
+</html>

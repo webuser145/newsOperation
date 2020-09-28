@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../javascripts/jquery-3.4.1.min.js"></script>
+  <title>文章列表</title>
+</head>
+<style>
+  *{
+    margin:0;
+    padding:0;
+    text-decoration: none;
+    overflow-x: hidden;
+  }
+  h1{
+    text-align: center;
+    margin-top:20px;
+    padding-bottom:20px;
+  }
+  ul{
+    width:1500px;
+    margin: 0 70px;
+  }
+  li{
+    list-style-type: none;
+    border:1px solid #330;
+    float: left;
+    padding:10px 20px;
+    text-align: center;
+    width:150px;
+    white-space: nowrap;  /* 不要让文字换行*/
+    overflow: hidden;  /* 隐藏溢出的文本*/
+    text-overflow: ellipsis;  /* 对溢出的文字做打点处理*/
+    font-weight: bold;
+  }
+  ul li.article{
+    width:400px;
+  }
+  .list_content li{
+    font-size: 14px;
+    font-weight: normal;
+  }
+  .list_content li a{
+    margin-right:5px;
+  }
+  .increase_content{
+    width:100px;
+    height:40px;
+    margin-top:10px;
+    margin-left:730px;
+    background-color:rgb(156, 156, 142);
+    text-align: center;
+    border-radius: 10px;
+    color:#fff;
+    font-weight: bold;
+  }
+  .increase_content a{
+    line-height: 40px;
+  }
+</style>
+<body>
+  <h1>文章列表</h1>
+  <ul> 
+    <li>标题</li>
+    <li>作者</li> 
+    <li>来源</li>
+    <li class="article">文章内容(点击详情)</li>
+    <li>创建时间</li>
+    <li>操作</li>
+  </ul>
+  <ul class="list_content">
+    <% find_data.forEach(val => { %>
+      <li><%- val.article_name %></li>
+      <li><%- val.author %></li>
+      <li><%- val.source %></li>
+      <li class="article"><a href="/articles/details.html?id=<%- val.id %>"><%- val.article %></a></li>
+      <li><%- val.createTime %></li>
+      <li>
+        <a href="/articles/amend.html?id=<%- val.id %>">修改</a>
+        <a href="#" data-id = "<%- val.id %>" class="del">删除</a>
+      </li>
+    <%            }) %>
+  </ul>
+
+  <div class="increase_content">
+    <a href="/articles/news.html">增加文章</a>
+  </div>
+
+  <script>
+    $(() => {
+      $('.del').click(function(){
+        let id_val = $(this).data('id');
+        // console.log(id_val)
+        // 发送delete请求
+        $.ajax({
+          url:'/api/articles/' + id_val,
+          type:'delete',
+          success:data => {
+            alert(data.msg);
+            location.href = '/api/articles';
+          }
+        });
+
+      })
+    })
+  </script>
+</body>
+</html>

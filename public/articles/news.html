@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../stylesheets/news.css">
+  <script src="../javascripts/jquery-3.4.1.min.js"></script>
+  <script src="../javascripts/news.js"></script>
+  <title>文章发布系统</title>
+</head>
+<body>
+  <h1>文章发布系统</h1>
+  <form id="articles_publish">
+    <table border="1"   cellspacing="0">
+      <tr>
+        <td>作者</td>
+        <td>
+          <input type="text" name="author" placeholder="请输入作者">
+        </td>
+      </tr>
+      <tr>
+        <td>文章名</td>
+        <td>
+          <input type="text" name="article_name" placeholder="请输入文章名">
+        </td>
+      </tr>
+      <tr>
+        <td>来源</td>
+        <td>
+          <input type="text" name="source" placeholder="请输入来源,原创可以不写">
+        </td>
+      </tr>
+      <tr>
+        <td>正文内容</td>
+        <td>
+          <textarea name="article"  cols="135" rows="25" placeholder="请在这里输入正文内容"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>发布</td>
+        <td id="issue_id">
+          <input type="button" id="issue" value="发布">
+        </td>
+      </tr>
+    </table>
+  </form>
+  <script>
+    // 发送ajax请求
+    $(() => {
+      $('#issue').click(() => {
+        let val = $('#articles_publish').serialize().split('&');
+        let sign = formValidator(val); // 验证
+        if(!sign){
+          alert('文章发布已被驳回,请重新编辑');
+        }else{
+          $.post('/api/articles',$('#articles_publish').serialize(),data => {
+            alert(data.msg);
+            window.location.href = '/api/articles';  // 跳转页面
+          })
+        }
+
+      })
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>文章详情</title>
+  <link rel="stylesheet" type="text/css" href="../stylesheets/details.css">
+  <script src="../javascripts/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+  <div class="boke_body">
+    <header>
+      <div class="log_title">
+        <h1 id="title"></h1>
+        <div class="log_explain">
+          <span>作者:</span>&nbsp;
+          <a href="#" id="author"></a>&nbsp;
+          <span>|</span>&nbsp;
+          <span>来源:</span>&nbsp;
+          <a href="#" id="source"></a>&nbsp;&nbsp;
+        </div>
+        <div class="log_date">
+          <span id="create_time"></span>
+          <a id="back_list" href="/api/articles">返回文章列表</a>
+        </div>
+      </div><br>
+      <hr>
+    </header>
+    <main>
+      <div class="log_txt" id="articles_content"></div>
+    </main>
+  </div>
+  <script>
+    $(() => {
+      let id_val = location.href.split('=')[1];
+      $.get('/api/articles/' + id_val,data => {
+        console.log(data);
+        $('#title').html(data.article_name);  // 标题
+        $('#author').html(data.author);  // 作者
+        $('#source').html(data.source);  //来源
+        $('#create_time').html(data.createTime);  // 创建时间
+        $('#articles_content').html(data.article);  // 正文内容
+      })
+      
+    })
+  </script>
+  
+</body>
+
+</html>

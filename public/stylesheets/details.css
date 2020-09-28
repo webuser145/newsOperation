@@ -1,0 +1,86 @@
+/*
+  测试代码,部分样式并未用到
+*/
+
+*{
+	margin:0;
+	padding:0;
+}
+/* header */
+div.boke_body{
+	width:800px;
+    margin:auto;
+	border:1px solid skyblue;
+	background-color:rgb(179, 245, 229);
+}
+div .log{
+	background-color:#efeafe;
+	height:25px;
+}
+div .log span{
+	color:#5d6881;
+	font-size:15px;
+}
+div .log_title h1{
+	font-size:24px;
+	font-family: "Microsoft YaHei", 黑体, 楷体, 隶书;
+	font-weight:300;
+	text-align: center;
+	margin-top:50px;
+}
+div .log_explain{
+	font-size:12px;
+	margin-top:20px;
+	text-align: center;
+}
+div .log_explain a{
+	text-decoration: none;
+	color:rgb(8, 6, 7);
+}
+div .log_date{
+	margin-top:15px;
+	margin-left:15px;
+	font:12px Verdana, Arial, Helvetica, 宋体, sans-serif;
+}
+div .log_read{
+	margin-left:500px;
+}
+div .log_read a{
+	text-decoration: none;
+}
+
+/* main */
+
+main .img_one,.img_two,.img_three,.img_four,.img_five,.img_six,.img_seven,.img_eight,.img_nine,.img_ten{
+	margin-top:15px;
+	margin-left:50px;	
+}
+div .log_txt p{
+	margin-left:50px;
+	margin-right:50px;
+	font-size:18px;
+	font-weight: 100;
+	word-break: break-all;
+}
+div .log_txt span{
+	margin-left:50px;
+	font-weight:bold;
+}
+main .img_ten{
+	width:690px;
+}
+div .log_reads{
+	margin-top:50px;
+	margin-left:650px;
+	font:12px Verdana, Arial, Helvetica, 宋体, sans-serif;
+}
+div .log_reads a{
+	text-decoration: none;
+}
+
+
+#back_list{
+  margin-left:500px;
+  text-decoration: none;
+}
+	
